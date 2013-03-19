@@ -22,7 +22,7 @@ sub authorize {
   if(!(is_string($login) && is_string($password))){
 
     $self->errors('login and password are required');
-    return 0;
+    return;
 
   }
   
@@ -32,21 +32,21 @@ sub authorize {
   if(!is_hash_ref($account)){
 
     $self->errors('login and/or password is invalid');
-    return 0;  
+    return;  
   
   }
 
   if(!is_string($account->{password})){
 
     $self->errors('attempting to access as inaccessible account');
-    return 0;
+    return;
 
   }
 
   if($account->{password} ne $password){
 
     $self->errors('login and/or password is invalid');
-    return 0;
+    return;
     
   }
 
@@ -57,6 +57,7 @@ sub authorize {
     roles => [@{$account->{roles}}],
     error => []
   };
+
   return $self->credentials($session_data);
 
 }
