@@ -62,6 +62,17 @@ Catmandu->store('default')->bag('users')->add({
 
 });
 
+# NOTE
+
+The configuration of the store is only a sample. Different other stores exist in Catmandu.
+See:
+
+[Catmandu::Store::Hash](https://metacpan.org/pod/Catmandu::Store::Hash)
+
+[Catmandu::Store::Solr](https://metacpan.org/pod/Catmandu::Store::Solr)
+
+[Catmandu::Store::MongoDB](https://metacpan.org/pod/Catmandu::Store::MongoDB)
+
 # AUTHOR
 
 Nicolas Franck, `<nicolas.franck at ugent.be>`
