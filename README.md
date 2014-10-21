@@ -1,15 +1,83 @@
-#Dancer Plugin Auth RBAC Credentials Catmandu
+# NAME
 
-#Description
+Dancer::Plugin::Auth::RBAC::Credentials::Catmandu - Catmandu store backend for Dancer::Plugin::RBAC::Credentials
 
-  Catmandu store backend for Dancer::Plugin::Auth::RBAC::Credentials
+# INSTALLATION AND CONFIGURATION
 
-#setup
+## install the following perl modules
 
-  perl Build.PL
-  ./Build installdeps
+- Catmandu
+- Catmandu::DBI
 
+## add the yaml file 'catmandu.yml' to the root directory of your Dancer project
 
-# License
+store:
+ default:
+  package: Catmandu::Store::DBI
+  options:
+   data\_source: "dbi:mysql:database=myapp"
+   username: "admin"
+   password: "admin"
 
-(c) 2013, Ghent University.
+## adjust your Dancer config.yml
+
+plugins:
+ Auth::RBAC:
+  credentials:
+   class: Catmandu
+   options:
+    #name of store in catmandu.yml
+    store: 'default'
+    #name of table
+    bag: 'users'
+
+## The table 'users' will be created if not exists already, and will have the following format
+
+- id
+
+    identifier of the user
+
+- data
+
+    json data, in the following form:
+
+    {
+
+        _id: "njfranck",
+        login: "njfranck",
+        name: "Nicolas Franck",
+        password: "password",
+        roles: ["admin"]
+
+    }
+
+## in order to add users execute the following code
+
+Catmandu->store('default')->bag('users')->add({
+    \_id => "user2",
+    name => "user 2",
+    login => "user2",
+    password => "secret",
+    roles => \["editor","messenger"\]
+
+});
+
+# AUTHOR
+
+Nicolas Franck, `<nicolas.franck at ugent.be>`
+
+# SEE ALSO
+
+[Catmandu](https://metacpan.org/pod/Catmandu)
+
+[Catmandu::Store::DBI](https://metacpan.org/pod/Catmandu::Store::DBI)
+
+[Dancer::Plugin::Auth::RBAC](https://metacpan.org/pod/Dancer::Plugin::Auth::RBAC)
+
+# LICENSE AND COPYRIGHT
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of either: the GNU General Public License as published
+by the Free Software Foundation; or the Artistic License.
+
+See http://dev.perl.org/licenses/ for more information.

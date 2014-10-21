@@ -138,6 +138,17 @@ Catmandu->store('default')->bag('users')->add({
 
 });
 
+=head1 NOTE
+
+The configuration of the store is only a sample. Different other stores exist in Catmandu.
+See:
+
+L<Catmandu::Store::Hash>
+
+L<Catmandu::Store::Solr>
+
+L<Catmandu::Store::MongoDB>
+
 =head1 AUTHOR
 
 Nicolas Franck, C<< <nicolas.franck at ugent.be> >>
